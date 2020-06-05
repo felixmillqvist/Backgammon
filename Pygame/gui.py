@@ -62,6 +62,7 @@ def black_token_at(coord_x,coord_y):
 def dice_display(img, coord_x,coord_y):
     screen.blit(img,(coord_x,coord_y))
 
+
 y1_12 = 18
 y13_24 = 717
 board_coords = np.zeros(25, dtype=int)
@@ -90,13 +91,9 @@ board_coords[22] = 33+88+89+89+90+87+116+88+88+89
 board_coords[23] = 33+88+89+89+90+87+116+88+88+89+89
 board_coords[24] = 33+88+89+89+90+87+116+88+88+89+89+89
 
-
-#x = board_coords[7]
-
-def print_board(board):
-    pass
-# Game loop
 running = True
+
+# Game loop
 while not white.is_done() and not black.is_done():
     # current player roll the dice
     current_player.dices = roll_dice()
@@ -140,6 +137,7 @@ while not white.is_done() and not black.is_done():
     #GUI----------
     # RBG
     screen.fill(0xFFFFFF)
+    
     # Quit
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -147,8 +145,12 @@ while not white.is_done() and not black.is_done():
 
     
     screen.blit(background,(0,0))
-
-
+    pygame.draw.rect(screen,(0,0,0),[0,0,1550,20])
+    pygame.draw.rect(screen,(0,0,0),[0,827-20,1550,20])
+    pygame.draw.rect(screen,(0,0,0),[0,0,20,1550])
+    pygame.draw.rect(screen,(0,0,0),[1550-20,0,20,827])
+    pygame.draw.rect(screen,(0,0,0),[1169/2-10,0,20,827])
+    pygame.draw.rect(screen,(0,0,0),[1169-25,0,20,827])
     # Board tokens
     for i in range(0,25,1):
         if board.board[i] > 0:
@@ -192,33 +194,33 @@ while not white.is_done() and not black.is_done():
     # Free tokens
     if white.free > 0:
         for k in range(0,white.free,1):
-            white_token_at(1120, y1_12+15*k)
+            white_token_at(1150, y1_12+15*k)
     if black.free > 0:
         for k in range(0,black.free,1):
-            black_token_at(1120, y13_24-15*k)
+            black_token_at(1150, y13_24-15*k)
 
     # Dice 
     for d in range(0,2):
         if current_player.all_dices[d] == 1:
-            dice_display(one,1200, 300+130*d)
+            dice_display(one,1230, 300+130*d)
         elif current_player.all_dices[d] == 2:
-            dice_display(two,1200, 300+130*d)
+            dice_display(two,1230, 300+130*d)
         elif current_player.all_dices[d] == 3:
-            dice_display(three,1200, 300+130*d)
+            dice_display(three,1230, 300+130*d)
         elif current_player.all_dices[d] == 4:
-            dice_display(four,1200, 300+130*d)
+            dice_display(four,1230, 300+130*d)
         elif current_player.all_dices[d] == 5:
-            dice_display(five,1200, 300+130*d)
+            dice_display(five,1230, 300+130*d)
         elif current_player.all_dices[d] == 6:
-            dice_display(six,1200, 300+130*d)
+            dice_display(six,1230, 300+130*d)
 
     # Text
-    screen.blit(cp_label, (1240, 40))
+    screen.blit(cp_label, (1260, 40))
     if current_player == white:
         player_label = myfont.render('WHITE',3,(0,0,0))
     else:
         player_label = myfont.render('BLACK',3,(0,0,0))
-    screen.blit(player_label, (1410,40))
+    screen.blit(player_label, (1430,40))
     screen.blit(pm_label,(1340, 100))
 
     # Display possible moves
@@ -233,7 +235,7 @@ while not white.is_done() and not black.is_done():
     pygame.display.update()
     if not running:
         break
-    time.sleep(0.2)
+    #time.sleep(0.2)
     current_player = current_player.opponent
 
 
