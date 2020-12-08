@@ -217,21 +217,12 @@ while not white.is_done() and not black.is_done():
         #time.sleep(0.2)
 
         if i == 7: break
-        print('Current Player:\t', 'WHITE - o' if current_player.color == 1 else 'BLACK - x')
 
-        print('Dice rolled:\t', end = '')
-        for die in current_player.dices:
-            print(die, end = '\t')
-
-        
-        
-        print(current_player.moves)
-        #print(current_player.possible_moves(board.board))
         # current_player moves a token
         if len(current_player.moves) > 0:
             #move_nbr = np.random.randint(0,len(current_player.moves))
             move_nbr = -1
-            while move_nbr == -1:
+            while move_nbr == -1 or move_nbr > len(current_player.moves)-1:
                 events = pygame.event.get()
                 for event in events:
                     if event.type == pygame.KEYDOWN:
@@ -259,7 +250,6 @@ while not white.is_done() and not black.is_done():
 
             #move_nbr = int(input())
 
-            print(current_player.moves[move_nbr])
             # move one token
             board.move(current_player.moves[move_nbr][0],current_player.moves[move_nbr][1],current_player) 
             # remove the used dice
@@ -267,13 +257,9 @@ while not white.is_done() and not black.is_done():
         else:
             current_player.dices = np.array([])
 
-        board.print()
-
         
     current_player = current_player.opponent
 
-
-print('Winner is:\t', 'WHITE - o' if current_player.opponent.color == 1 else 'BLACK - x')
 while running:
     # Quit
     for event in pygame.event.get():
